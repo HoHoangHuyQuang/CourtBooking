@@ -1,0 +1,41 @@
+﻿@using CourtBooking.Models
+@model IEnumerable<Product>
+@{
+    Layout = "~/Views/Shared/_ProductLayout.cshtml";
+}
+<div class="container-fluid pt-5 pb-3">
+    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Featured Products</span></h2>
+    <div class="row px-xl-5">
+
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                    <a asp-action="ProductDetail" asp-controller="Home" asp-route-id="@item.Id">
+                        <div class="product-item bg-light mb-4">
+                            <div class="product-img position-relative overflow-hidden">
+
+                                <img class="img-fluid w-100" src="@("/"+item.ThumbnailURl)" alt="" sizes="500,500">
+                                <div class="product-action">
+                                </div>
+                            </div>
+                            <div class="text-center py-4">
+                                <a class="h3 text-decoration-none text-truncate"><strong>@item.Name</strong></a>
+                                <div class="d-flex align-items-center justify-content-center mt-2">
+                                    <h5>@(item.Price + " VND")</h5>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-center mb-1">
+                                    <a role="button" asp-action="ProductDetail" asp-controller="Home" asp-route-id="@item.Id" class="btn btn-blue rounded" style="color: blue;">Tìm hiểu thêm</a>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+
+            }
+        }
+
+    </div>
+</div>

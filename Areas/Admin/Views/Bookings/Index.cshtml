@@ -1,0 +1,96 @@
+﻿@model IEnumerable<CourtBooking.Models.Booking>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExtraData)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Users)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Court)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedAt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExtraData)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Users.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Court.Name)
+                </td>
+                <td>
+                    @if(item.Status == 0)
+                    {
+                        <i class="fa fa-check-square-o " style="color: green"></i>
+                    }else if(item.Status == -1)
+                    {
+                        <i class="fa fa-times" style="color: red"></i>
+                    }
+                    else
+                    {
+                        <i class="fa fa-spinner" aria-hidden="true"></i>
+                    }
+                </td>
+                <td>
+                    @if (item.Status == 0)
+                    {
+                        <a class="btn btn-success" role="button" asp-action="ApprovedBooking" asp-route-id="@item.BookingId">Chấp nhận</a>
+
+                    }
+                    @if (item.Status != -1)
+                    {
+                        <a class="btn btn-danger" role="button" asp-action="RefuseBooking" asp-route-id="@item.BookingId">Từ chối</a>
+                    }
+                    <a class="btn btn-primary" role="button" asp-action="Details" asp-route-id="@item.BookingId">Chi tiết</a> 
+                    
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

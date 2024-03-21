@@ -1,0 +1,140 @@
+﻿@using CourtBooking.ViewModels
+@model BookingVm
+@{
+    Layout = "~/Views/Shared/_BookingLayout.cshtml";
+   
+    
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="booking-form">
+                <h3>Book a court</h3>
+                <form id="bookForm" asp-action="Booking">
+                    <select asp-for="BookingCountId" asp-items="ViewBag.AvailCourts" class="form-control">
+                        <option value="">--Chọn sân--</option>
+                    </select>
+                    <input type="date" asp-for="StartDate" class="form-control" required>
+                    <input type="time" asp-for="StartTime" class="form-control" required>
+                    <input type="text" asp-for="Duration" class="form-control" min="0" required>
+                    <button id="bookBtn" type="submit">Book</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-md-8" style="padding-left:100px;">
+            <div class="container_court_vertical">
+                <!-- Add your HTML elements here -->
+                <div class="court vertical available" id="E">
+                    <div class="court-label">E</div>
+                </div>
+                <div class="court vertical available" id="D">
+                    <div class="court-label">D</div>
+                </div>
+                <div class="court vertical available" id="C">
+                    <div class="court-label">C</div>
+                </div>
+                <div class="court vertical available" id="B">
+                    <div class="court-label">B</div>
+                </div>
+                <div class="court vertical available" id="A">
+                    <div class="court-label">A</div>
+                </div>
+            </div>
+            <div class="container_horizonal">
+                <!-- Add your HTML elements here -->
+                <div class="court horizonal available" id="F">
+                    <div class="court-label">F</div>
+                </div>
+                <div class="court horizonal available" id="G">
+                    <div class="court-label">G</div>
+                </div>
+                <div class="court horizonal available" id="H">
+                    <div class="court-label">H</div>
+                </div>
+                <div class="court horizonal available" id="I">
+                    <div class="court-label">I</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.main.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        // get date element
+        const dateInput = document.getElementById("StartDate");
+        const courtInput = document.getElementById("BookingCountId");
+        const timeInput = document.getElementById("StartTime");
+        const durationInput = document.getElementById("Duration");
+        var today = new Date().toISOString();
+        dateInput.value = today.split('T')[0];
+        dateInput.min = today.split('T')[0];
+        timeInput.min = today.split('T')[1];
+
+        // Get the court elements
+        const courts = document.querySelectorAll(".court");
+        // Get the booking form elements
+        const bookForm = document.getElementById("bookForm");
+        const bookBtn = document.getElementById("bookBtn");
+
+        // Store the selected court id
+        let selectedCourt = null;
+        durationInput.addEventListener('input', function () {
+            this.value = this.value.replace(/[^0-9 \.]/, '');
+        });
+        dateInput.addEventListener("change", function (e) {
+            var time = new Date("1970-01-01T" + dateInput.value);
+            var min = new Date("1970-01-01T" + dateInput.min);
+            if (time < min) {
+                e.preventDefault();
+            }
+        });
+
+        // prevent input
+        timeInput.addEventListener("change", function (e) {
+            var time = new Date("1970-01-01T" + timeInput.value);
+            var min = new Date("1970-01-01T" + timeInput.min);
+            if (time < min) {
+                e.preventDefault();
+            }
+        });
+
+
+        // Add a click event listener to each court element
+        courts.forEach(court => {           
+                court.addEventListener("click", function () {
+                    // Check if the court is available
+                    if (court.classList.contains("available")) {
+                        // Deselect the previous selected court if any
+                        if (selectedCourt) {
+                            selectedCourt.classList.remove("selected");
+                        }
+                        // Select the current court
+                        court.classList.add("selected");
+                        // Update the selected court id
+                        selectedCourt = court;
+                        
+                    }
+                });
+        });
+        courtInput.addEventListener("change", function (e) {
+            var c_name = this.innerHTML;
+            courts.forEach(court => {
+                if (court.id === c_name) {
+                    court.click();
+                }
+            });
+        });
+      
+
+      
+    });
+</script>
+
+

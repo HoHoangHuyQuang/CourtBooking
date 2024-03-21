@@ -1,0 +1,91 @@
+﻿@using CourtBooking.Models
+@model Product
+@{
+    Layout = "~/Views/Shared/_ProductLayout.cshtml";
+}
+<!-- Shop Detail Start -->
+<div class="container-fluid pb-5">
+    <div class="row px-xl-5">
+        <div class="col-lg-5 mb-30">
+            <div id="product-carousel" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner bg-light">
+                    <div class="carousel-item active">
+                        <img class="w-100 h-100" src="@("/"+Model.ThumbnailURl)" alt="Image" sizes="672, 672">
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-lg-7 h-auto mb-30">
+            <div class="h-100 bg-light p-30">
+                <h1 style="text-align: center">@Model.Name</h1>
+                <h3 class="font-weight-semi-bold mb-4">@Model.Price VND</h3>
+                <p class="mb-4">
+                    <strong class="text-dark mr-3">Mô tả:</strong>
+                    @Model.Description
+                </p>
+                <p class="mb-4">
+                    <strong class="text-dark mr-3">Sizes:</strong>
+                    @Model.ProductSize
+                </p>
+                <p class="mb-4">
+                    <strong class="text-dark mr-3">Xuất xứ:</strong>
+                    @Model.Origin
+                </p>
+                <p class="mb-4">
+                    <strong class="text-dark mr-3">Liên hệ đặt hàng:</strong>
+                    @Model.ContactPhone
+                </p>
+
+            </div>
+        </div>
+    </div>
+    @if (!string.IsNullOrEmpty(Model.HtmlContent))
+    {
+        <div class="row px-xl-5">
+            <div class="col">
+                <div class="bg-light p-30">
+                    <div class="nav nav-tabs mb-4">
+                        <a class="nav-item nav-link text-dark active" data-toggle="tab" href="#tab-pane-1">Description</a>
+
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="tab-pane-1">
+                            <h4 class="mb-3">@Model.Name</h4>
+                            @Html.Raw(Model.HtmlContent)
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<!-- Shop Detail End -->
+<!-- Products Start -->
+<div class="container-fluid py-5">
+    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Dành cho bạn</span></h2>
+    <div class="row px-xl-5">
+        <div class="col">
+            <div class="owl-carousel related-carousel">
+                <div class="product-item bg-light">
+                    <div class="product-img position-relative overflow-hidden">
+                        <img class="img-fluid w-100" src="img/product-1.jpg" alt="">
+
+                    </div>
+                    <div class="text-center py-4">
+                        <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
+                        <div class="d-flex align-items-center justify-content-center mt-2">
+                            <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center mb-1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Products End -->

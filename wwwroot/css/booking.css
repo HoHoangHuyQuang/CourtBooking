@@ -1,0 +1,83 @@
+﻿
+/* Add your CSS styles here */
+
+.container_court_vertical {
+    display: flex;   
+    flex-wrap: nowrap;
+}
+
+.container_horizonal {
+    display: flex;    
+    flex-wrap: nowrap;
+}
+
+.court {
+    width: 100px;
+    height: 200px;
+    margin: 10px;
+    border: 2px solid black;
+    position: relative;
+}
+
+.vertical {
+    width: 100px;
+    height: 200px;
+    margin: 10px;
+    border: 2px solid black;
+    position: relative;
+}
+
+.horizonal {
+    width: 150px;
+    height: 80px;
+    margin: 10px;
+    border: 2px solid black;
+    position: relative;
+}
+
+.court-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.court .available {
+    background-color: green;
+}
+
+.court .unavailable {
+    background-color: red;
+}
+
+.court.selected {
+    background-color: yellow;
+}
+
+.booking-form {
+    width: 300px;
+    margin: 20px;
+    padding: 20px;
+    border: 2px solid black;
+}
+
+    .booking-form input[type="text"],
+    .booking-form input[type="date"],
+    .booking-form input[type="time"] {
+        width: 100%;
+        margin: 10px 0;
+        padding: 10px;
+        border: 1px solid black;
+    }
+
+    .booking-form button {
+        width: 100%;
+        margin: 10px 0;
+        padding: 10px;
+        border: none;
+        background-color: blue;
+        color: white;
+        font-size: 16px;
+    }

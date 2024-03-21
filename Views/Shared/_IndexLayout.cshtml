@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Công ty TNHH DV Thể thao Phạm Kha</title>
+    <link rel="icon" type="image/png" href="~/favicon.ico" sizes="16x16">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/lib/fontawesome/dist/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/all.css">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700|Source+Sans+Pro:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+    <div id="wrapper">
+        <header id="header">
+            <div class="container">
+                <div class="logo"><a asp-action="Index" asp-controller="Home"><img src="~/imgs/logo.png" alt="logo"></a></div>
+                <nav id="nav">
+                    <div class="opener-holder">
+                        <a href="#" class="nav-opener"><span></span></a>
+                    </div>
+                    <a href="https://booking.idbooker.com/booking/phamkha?action=set-booking" class="btn btn-primary rounded">ĐẶT SÂN NGAY</a>
+                    <div class="nav-drop">
+                        <ul>
+                            <li class="active visible-sm visible-xs"><a asp-action="Index" asp asp-controller="Home">Trang chủ</a></li>
+                            <li><a asp-action="ProductView" asp-controller="Home">Sản phẩm</a></li>
+                            @* <li><a href="#">Khóa học</a></li> *@
+                            @if (Context.User != null && Context.User.Claims.Any(x=> new List<string>{"admin", "superuser"}.Contains(x.Value.ToLower())))
+                            {
+                                <li><a href="/admin">Admin-Site</a></li>
+                            }
+                        </ul>
+
+                    </div>
+                </nav>
+            </div>
+        </header>
+        @RenderBody()
+        <a href="#" class="btn btn-primary back-to-top" style="display: inline;"><i class="fa fa-angle-double-up"></i></a>
+
+        <footer id="footer">
+            <div class="container">
+                <div class="footer-holder">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3>Địa chỉ sân tập</h3>
+                            <p>
+                                Đ. Phạm Hùng, Bình Hưng, Bình Chánh, Thành phố Hồ Chí Minh
+                            </p>
+
+                        </div>
+
+                        <div class="col-md-6 text-right">
+                            <ul class="social">
+                                <li><a href="https://www.facebook.com/people/S%C3%A2n-c%E1%BA%A7u-l%C3%B4ng-Ph%E1%BA%A1m-Kha/61550205595997/"><i class="fa fa-facebook-f"></i></a></li>
+                                <li><a href="javascript:"> <i class="fa fa-youtube" style="color: #ec2222;"></i> </a></li>
+                                <li><a href="javascript:"><i><img src="~/imgs/zalo.png" height="30" s /></i> </a></li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                &copy; 2024 - Dev
+                @if (Context.User != null && Context.User.Claims.Any(x => x.Value.ToLower().Equals("admin")))
+                {
+                    <a href="/admin">Admin-Site</a>
+                }
+            </div>
+
+
+        </footer>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.main.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
